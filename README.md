@@ -33,12 +33,12 @@ Get an API key from the "integrations" tab of your moco profile. Enter the API k
 Execute one of these:
 
 ```bash
-./moco2jira.js 'today'
-./moco2jira.js 'yesterday'
-./moco2jira.js 'this week'
-./moco2jira.js 'last week'
-./moco2jira.js 'this month'
-./moco2jira.js 'last month'
+./moco2jira.js -t 'today'
+./moco2jira.js -t 'yesterday'
+./moco2jira.js -t 'this week'
+./moco2jira.js -t 'last week'
+./moco2jira.js -t 'this month'
+./moco2jira.js -t 'last month'
 ```
 
 Use Jira Assistant's "Import worklog" to import the `entries.csv` file.

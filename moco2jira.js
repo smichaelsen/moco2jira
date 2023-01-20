@@ -4,15 +4,11 @@ require('dotenv').config();
 const { parseTimespanInput } = require('./lib/parseTimespanInput');
 const { readActivities } = require('./lib/moco');
 const { createCsv } = require('./lib/jira-assistant');
+const { parseArguments } = require('./lib/parseArguments');
 
-const cliArgs = process.argv.slice(2);
-if (!cliArgs[0]) {
-    console.info('You did not specify the time for which you want to export MOCO data. Assuming "today".' + '\n');
-}
+const arguments = parseArguments(process.argv.slice(2));
 
-async function exportData() {
-    const timespanInput = cliArgs[0]?.trim() || 'today';
-    const timespan = parseTimespanInput(timespanInput);
+async function mocoToJiraAssistant(timespan) {
     const activities = await readActivities(timespan);
     const jiraAssistantCsv = createCsv(activities);
     await fs.writeFile(`${__dirname}/entries.csv`, jiraAssistantCsv, err => {
@@ -21,4 +17,5 @@ async function exportData() {
     console.log(`Written to entries.csv`);
 }
 
-exportData();
+const timespan = parseTimespanInput(arguments.timespan);;
+mocoToJiraAssistant(timespan);
