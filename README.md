@@ -1,15 +1,13 @@
-# Export time entries from MOCO to Jira (Assistant)
+# Reuse MOCO time entries
 
-This small script is suited for a very particular workflow:
+If you track activities in MOCO, this script can help you to:
 
-* You track times in MOCO
-* Your time entries have references to Jira tickets
-* You have the [Jira Assistant](https://www.jiraassistant.com/) Browser extension (my recommendation anyway!)
-* You want to export your time entries from MOCO and import it into JIRA
+* Export activities that have a JIRA ticket reference, to import them to Jira with [Jira Assistant](https://www.jiraassistant.com/).
+* Convert them into presence time in MOCO.
 
 ## Disclaimer
 
-This is a script I hacked together in an hour or so. Please review the time entries carefully that you're about to import into Jira (the Jira Assistant will give you a nice preview).
+Please review the time entries carefully that you're about to import into Jira (the Jira Assistant will give you a nice preview).
 Do not hold me accountable for messed up JIRA time entries.
 
 ## Setup
@@ -41,4 +39,17 @@ Execute one of these:
 ./moco2jira.js -t 'last month'
 ```
 
-Use Jira Assistant's "Import worklog" to import the `entries.csv` file.
+## Destinations
+
+Jira Assistant `ja` is the default `--destination` (`-d`).
+
+| `--destination` | Name           | Description                                                                                          |
+|-----------------|----------------|------------------------------------------------------------------------------------------------------|
+| `ja`            | Jira Assistant | Writes an `entries.csv` file that cn be imported with the "Import worklog" option in Jira Assistant. |
+| `presence`      | MOCO Presence  | Overwrites(_!_) any MOCO presence time with the working times derived from the time entries.         |
+
+You can supply multiple destinations:
+
+```bash
+./moco2jira.js -d presence -d ja -t 'today'
+```
