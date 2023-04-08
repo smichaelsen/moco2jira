@@ -16,9 +16,9 @@ async function toJiraAssistant(activities) {
   console.log(`Written to entries.csv`);
 }
 
-async function toMocoPresence(activities) {
+async function toMocoPresence(activities, timespan) {
   const presenceEntries = createPresenceEntriesFromActivities(activities);
-  await postPresenceEntries(presenceEntries);
+  await postPresenceEntries(presenceEntries, timespan);
 }
 
 async function execute(destinations, timespan) {
@@ -28,7 +28,7 @@ async function execute(destinations, timespan) {
     if (destination === 'ja') {
       await toJiraAssistant(activities);
     } else if (destination === 'presence') {
-      await toMocoPresence(activities);
+      await toMocoPresence(activities, parsedTimespan);
     }
   }
 }
